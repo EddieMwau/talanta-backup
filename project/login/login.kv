@@ -1,0 +1,83 @@
+#:import MDToolbar kivymd.toolbar.MDToolbar
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDTextFieldClear kivymd.textfields.MDTextFieldClear
+#:import MDTextFieldRect kivymd.textfields.MDTextFieldRect
+#:import MDFillRoundFlatButton kivymd.button.MDFillRoundFlatButton
+#:import MDTextFieldClear kivymd.textfields.MDTextFieldClear
+
+
+<LoginWindow>
+    canvas.before:
+        Color:
+            rgba:(1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'f1.png' 
+    orientation: 'vertical'
+    id: main_win
+    space_x: self.size[0]/4
+
+    MDToolbar:
+        id: toolbar
+        title: 'Login'
+        md_bg_color: app.theme_cls.primary_color
+        background_palette: 'Primary'
+        elevation: 10
+        left_action_items: [['dots-vertical', lambda x: None]]
+
+    ScrollView:
+        canvas.before:
+            Color:
+                rgba:(1,1,1,.8)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: main_win.space_x, 10
+            spacing: dp(15)
+            id: holder
+            Label:
+                id: info
+                text: ''
+                markup: True
+                size_hint_y: None
+                height: 20
+            MDTextField:
+				id: username_field
+                hint_text: "User Name"
+            Widget:
+                size_hint_y: None
+                height: dp(5)
+            MDTextField:
+				id: pwd_field
+				password: True
+                hint_text: "Password"
+            MDFillRoundFlatButton:
+                id: login_btn
+                on_release: root.validate_user()
+                text: "Login"
+                pos_hint: {'center_x': .5, 'center_y': .15}		
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+    
+            MDLabel:
+                text: 'Do not have an account? Create Account Below...'
+                color: 0, 0, 0, 1
+                halign: 'center'
+                font_style: 'Caption'
+                
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+            
+            MDFillRoundFlatButton:
+				id: signup_btn
+				on_release: root.sign_up()
+                text: "Sign Up"
+                pos_hint: {'center_x': .5, 'center_y': .15}
